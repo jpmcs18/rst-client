@@ -1,7 +1,6 @@
 import CustomReturn from '../../models/client-model/CustomReturn';
 
 export default function CustomCheckBoxButton({
-  title,
   CheckedTitle,
   UncheckedTitle,
   name,
@@ -11,7 +10,6 @@ export default function CustomCheckBoxButton({
   disabled,
   onChange,
 }: {
-  title?: string;
   CheckedTitle: string;
   UncheckedTitle: string;
   name?: string;
@@ -23,7 +21,6 @@ export default function CustomCheckBoxButton({
 }) {
   return (
     <div className={'custom-input ' + className}>
-      <label htmlFor={name}>{title}</label>
       <div className='checkbox-button'>
         <button
           disabled={disabled}

@@ -24,7 +24,7 @@ export default function CustomSelector({
   return (
     <div className={'custom-input ' + className}>
       <label htmlFor={name}>{title}</label>
-      <div className='input-container selector'>
+      <div className='input-container'>
         <input
           disabled={disabled}
           readOnly={true}
@@ -33,7 +33,7 @@ export default function CustomSelector({
           id={id}
           value={value ?? ''}
         />
-        <div className='icon-container'>
+        <div className='icon-container magnify-container'>
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             className='icon'

@@ -66,6 +66,7 @@ export default function CustomDropdownItems({
     <div className='selection' ref={divRef} id={id}>
       <div>
         <input
+          id={'-search' + id}
           className='search-input'
           type='text'
           value={filter}

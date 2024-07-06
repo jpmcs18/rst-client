@@ -3,14 +3,16 @@ import React from 'react';
 export default function CustomDisplay({
   title,
   value,
+  isBold,
 }: {
   title: string;
-  value: string;
+  value: any;
+  isBold?: boolean;
 }) {
   return (
     <div className='custom-display'>
-      <label className='display-title'>{title}</label>
-      <div className='display-value'>{value ? value : 'N/A'}</div>
+      <div className='title'>{title}</div>
+      <div className={'value ' + (isBold ? 'bold-style' : '')}>{value}</div>
     </div>
   );
 }

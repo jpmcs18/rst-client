@@ -474,8 +474,7 @@ select:focus,
 textarea:focus,
 input:focus {
   outline: none;
-  border: 0.01em solid var(--input-selected-border-color);
-  box-shadow: 0em 0em 0.01em 0em var(--shadow-color);
+  box-shadow: 0em 0em 0.2em 0em var(--shadow-color);
 }
 select:-moz-read-only, textarea:-moz-read-only, input:-moz-read-only {
   border: 0.01em solid var(--input-border-color) !important;

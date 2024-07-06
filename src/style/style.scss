@@ -459,10 +459,10 @@ input {
   width: 100%;
   box-sizing: border-box;
   background-color: var(--container-background-color);
+  // text-transform: uppercase;
   &:focus {
     outline: none;
-    border: 0.01em solid var(--input-selected-border-color);
-    box-shadow: 0em 0em 0.01em 0em var(--shadow-color);
+    box-shadow: 0em 0em 0.2em 0em var(--shadow-color);
   }
   &:read-only {
     border: 0.01em solid var(--input-border-color) !important;

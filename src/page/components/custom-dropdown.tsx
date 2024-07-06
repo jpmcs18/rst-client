@@ -1,4 +1,8 @@
-import { faChevronDown, faClose } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAdd,
+  faChevronDown,
+  faClose,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Guid } from 'guid-typescript';
 import { useEffect, useRef, useState } from 'react';
@@ -15,6 +19,7 @@ export interface DropdownItem {
 }
 export default function CustomDropdown({
   title,
+  subTitle,
   name,
   id,
   className,
@@ -23,8 +28,11 @@ export default function CustomDropdown({
   readonly,
   onChange,
   selectorOnly,
+  onAdd,
+  required,
 }: {
-  title: string;
+  title?: string;
+  subTitle?: string;
   name?: string;
   id?: string;
   className?: string;
@@ -33,6 +41,8 @@ export default function CustomDropdown({
   readonly?: boolean | false;
   onChange?: (data: CustomReturn) => void;
   selectorOnly?: boolean | undefined;
+  onAdd?: () => void;
+  required?: boolean;
 }) {
   const dropdownState = useSelector((state: RootState) => state.dropdown);
   const [isOpen, setIsOpen] = useState(false);
@@ -55,14 +65,23 @@ export default function CustomDropdown({
     dispatch(dropdownActions.setOpenDropdown(componentId.current));
   }
   return (
-    <div className={'custom-input ' + className} id={id}>
-      <label>{title}</label>
+    <div className={'custom-input ' + (required && !value && 'required ')}>
+      {title && (
+        <label className='input-title' htmlFor={name}>
+          {title} {required && <span className='required'>REQUIRED</span>}
+        </label>
+      )}
+      {subTitle && (
+        <label className='input-subtitle' htmlFor={name}>
+          {subTitle}
+        </label>
+      )}
       <div className='select-container'>
         <div className='select-input-container input-container'>
           <input
             id={componentId.current + '-input'}
             type='text'
-            className='selection-input'
+            className={'selection-input ' + (selectorOnly ? 'selector' : '')}
             onFocus={() => openSelection()}
             onClick={() => openSelection()}
             readOnly={true}
@@ -74,14 +93,15 @@ export default function CustomDropdown({
           />
           <div className='icon-container'>
             <FontAwesomeIcon
+              onClick={() => openSelection()}
               icon={faChevronDown}
-              className='icon'
+              className='dropdown-icon'
               id={componentId + '-icon'}
             />
             {!selectorOnly && (
               <FontAwesomeIcon
                 icon={faClose}
-                className='close-icon'
+                className='dropdown-icon'
                 id={componentId + '-icon-remove'}
                 onClick={() =>
                   onChange?.({
@@ -89,6 +109,14 @@ export default function CustomDropdown({
                     value: undefined,
                   })
                 }
+              />
+            )}
+            {onAdd && (
+              <FontAwesomeIcon
+                icon={faAdd}
+                className='dropdown-icon'
+                id={componentId + '-icon-add'}
+                onClick={() => onAdd?.()}
               />
             )}
           </div>

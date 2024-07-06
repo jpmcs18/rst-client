@@ -1,35 +1,36 @@
 import CustomReturn from '../../models/client-model/CustomReturn';
-export default function CustomTextBox({
+export default function CustomTextArea({
   title,
   subTitle,
-  placeholder,
   name,
+  lines,
   id,
   className,
   value,
   readonly,
   disabled,
   onChange,
-  onKeyPress,
-  type,
   required,
 }: {
-  type?: string;
   title?: string;
   subTitle?: string;
-  placeholder?: string;
   name?: string;
+  lines?: number;
   id?: string;
   className?: string;
   value?: string;
   readonly?: boolean | false;
   disabled?: boolean | false;
   onChange?: (data: CustomReturn) => void;
-  onKeyPress?: (key: React.KeyboardEvent<HTMLDivElement>) => void;
   required?: boolean;
 }) {
   return (
-    <div className={'custom-input ' + (required && !value && 'required ')}>
+    <div
+      className={
+        'custom-input custom-text-area ' +
+        (required && !value && 'required ') +
+        className
+      }>
       {title && (
         <label className='input-title' htmlFor={name}>
           {title} {required && <span className='required'>REQUIRED</span>}
@@ -40,19 +41,16 @@ export default function CustomTextBox({
           {subTitle}
         </label>
       )}
-      <input
+      <textarea
         disabled={disabled}
         readOnly={readonly}
-        placeholder={placeholder}
-        type={!type ? 'text' : type}
-        className={className}
         name={name}
         id={id}
+        rows={lines ?? 2}
         value={value ?? ''}
         onChange={(e) =>
           onChange?.({ elementName: name ?? '', value: e.target.value })
         }
-        onKeyDown={onKeyPress}
       />
     </div>
   );

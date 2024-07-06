@@ -1,5 +1,5 @@
 import CustomReturn from '../../models/client-model/CustomReturn';
-export default function CustomTextBox({
+export default function CustomUsername({
   title,
   subTitle,
   placeholder,
@@ -28,6 +28,17 @@ export default function CustomTextBox({
   onKeyPress?: (key: React.KeyboardEvent<HTMLDivElement>) => void;
   required?: boolean;
 }) {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const allowedCharactersRegex = /^[a-zA-Z0-9_@.-]+$/; // Regular expression to allow only alphanumeric characters, underscores, and hyphens
+    const keyPressed = event.key;
+
+    // Check if the pressed key is not allowed
+    if (!allowedCharactersRegex.test(keyPressed)) {
+      event.preventDefault(); // Prevent the default action (typing the character)
+    }
+
+    onKeyPress?.(event);
+  };
   return (
     <div className={'custom-input ' + (required && !value && 'required ')}>
       {title && (
@@ -45,14 +56,14 @@ export default function CustomTextBox({
         readOnly={readonly}
         placeholder={placeholder}
         type={!type ? 'text' : type}
-        className={className}
+        className={'username ' + className}
         name={name}
         id={id}
         value={value ?? ''}
         onChange={(e) =>
           onChange?.({ elementName: name ?? '', value: e.target.value })
         }
-        onKeyDown={onKeyPress}
+        onKeyDown={handleKeyDown}
       />
     </div>
   );
