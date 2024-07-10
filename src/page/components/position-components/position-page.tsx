@@ -33,7 +33,11 @@ export default function PositionPage() {
     if (!positionState.initiateSearch) return;
     dispatch(positionActions.setInitiateSearch(false));
     setBusy(true);
-    await searchPosition(positionState.key, positionState.currentPage)
+    await searchPosition(
+      positionState.key,
+      positionState.itemCount,
+      positionState.currentPage
+    )
       .then((res) => {
         if (res !== undefined) {
           dispatch(positionActions.fill(res.results));
@@ -48,20 +52,19 @@ export default function PositionPage() {
   async function search(key: string) {
     dispatch(positionActions.setkey(key));
     dispatch(positionActions.setCurrentPage(1));
-    dispatch(positionActions.setInitiateSearch(true));
   }
   return (
     <div className='main-container'>
-      <section className='title-container'>
+      <div className='title-container'>
         <div className='title'>{Pages.Positions}</div>
-      </section>
-      <section>
+      </div>
+      <div>
         <SearchBar
           search={search}
           placeholder='Search Key'
           value={positionState.key}
         />
-      </section>
+      </div>
       <PositionButtons />
       <PositionItems />
       {positionModalState.isModalShow && <ManagePosition />}

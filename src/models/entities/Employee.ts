@@ -16,4 +16,6 @@ export default interface Employee {
   office?: Office;
   position?: Position;
   branch?: Branch;
+
+  isChecked?: boolean;
 }

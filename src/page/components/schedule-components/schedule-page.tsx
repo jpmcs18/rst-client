@@ -33,7 +33,11 @@ export default function SchedulePage() {
     if (!scheduleState.initiateSearch) return;
     dispatch(scheduleActions.setInitiateSearch(false));
     setBusy(true);
-    await searchSchedule(scheduleState.key, scheduleState.currentPage)
+    await searchSchedule(
+      scheduleState.key,
+      scheduleState.itemCount,
+      scheduleState.currentPage
+    )
       .then((res) => {
         if (res !== undefined) {
           dispatch(scheduleActions.fill(res.results));
@@ -48,20 +52,19 @@ export default function SchedulePage() {
   async function search(key: string) {
     dispatch(scheduleActions.setkey(key));
     dispatch(scheduleActions.setCurrentPage(1));
-    dispatch(scheduleActions.setInitiateSearch(true));
   }
   return (
     <div className='main-container'>
-      <section className='title-container'>
+      <div className='title-container'>
         <div className='title'>{Pages.Schedules}</div>
-      </section>
-      <section>
+      </div>
+      <div>
         <SearchBar
           search={search}
           placeholder='Search Key'
           value={scheduleState.key}
         />
-      </section>
+      </div>
       <ScheduleButtons />
       <ScheduleItems />
       {scheduleModalState.isModalShow && <ManageSchedule />}

@@ -23,6 +23,9 @@ import branchReducer from './reducers/branch-reducer';
 import branchModalReducer from './reducers/branch-modal-reducer';
 import scheduleReducer from './reducers/schedule-reducer';
 import scheduleModalReducer from './reducers/schedule-modal-reducer';
+import workingScheduleReducer from './reducers/working-schedule-reducer';
+import workingScheduleModalReducer from './reducers/working-schedule-modal-reducer';
+import employeeScheduleModalReducer from './reducers/employee-schedule-modal-reducer';
 const store = configureStore({
   reducer: {
     dropdown: dropdownReducer,
@@ -49,6 +52,9 @@ const store = configureStore({
     branchModal: branchModalReducer,
     schedule: scheduleReducer,
     scheduleModal: scheduleModalReducer,
+    workingSchedule: workingScheduleReducer,
+    workingScheduleModal: workingScheduleModalReducer,
+    employeeScheduleModal: employeeScheduleModalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

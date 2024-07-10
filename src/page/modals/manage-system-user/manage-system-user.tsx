@@ -19,7 +19,7 @@ import { systemUserActions } from '../../../state/reducers/system-user-reducer';
 import { RootState } from '../../../state/store';
 import CustomDropdown from '../../components/custom-dropdown';
 import CustomSelector from '../../components/custom-selector';
-import CustomTextBox from '../../components/custom-textbox';
+import CustomUsername from '../../components/custom-username';
 import Modal from '../modal';
 import EmployeeSearchable from '../searchables/employee-searchable';
 import ManageSystemUserPositionsTable from './manage-system-user-access-table';
@@ -154,7 +154,7 @@ export default function ManageSystemUser() {
               );
             }}
           />
-          <CustomTextBox
+          <CustomUsername
             title='Username'
             name='username'
             value={systemUserModalState.systemUser?.username}

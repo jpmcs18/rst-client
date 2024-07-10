@@ -6,7 +6,7 @@ export default function UserRoleItems() {
   const dispatch = useDispatch();
   const userRoleState = useSelector((state: RootState) => state.userRole);
   return (
-    <section className='table-container'>
+    <div className='table-container'>
       <table className='item-table'>
         <thead>
           <tr>
@@ -28,6 +28,6 @@ export default function UserRoleItems() {
           ))}
         </tbody>
       </table>
-    </section>
+    </div>
   );
 }

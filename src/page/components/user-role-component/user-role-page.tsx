@@ -33,7 +33,11 @@ export default function UserRolePage() {
     if (!userRoleState.initiateSearch) return true;
     setBusy(true);
     dispatch(userRoleActions.setInitiateSearch(false));
-    await searchUserRole(userRoleState.key, userRoleState.currentPage)
+    await searchUserRole(
+      userRoleState.key,
+      userRoleState.itemCount,
+      userRoleState.currentPage
+    )
       .then((res) => {
         if (res !== undefined) {
           dispatch(userRoleActions.fill(res.results));
@@ -48,20 +52,19 @@ export default function UserRolePage() {
   async function search(key: string) {
     dispatch(userRoleActions.setkey(key));
     dispatch(userRoleActions.setCurrentPage(1));
-    dispatch(userRoleActions.setInitiateSearch(true));
   }
   return (
     <div className='main-container'>
-      <section className='title-container'>
+      <div className='title-container'>
         <div className='title'>{Pages.UserRoles}</div>
-      </section>
-      <section>
+      </div>
+      <div>
         <SearchBar
           search={search}
           placeholder='Search Key'
           value={userRoleState.key}
         />
-      </section>
+      </div>
       <UserRoleButtons />
       <UserRoleItems />
       {userRoleModalState.isModalShow && <ManageUserRole />}

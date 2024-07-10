@@ -31,7 +31,11 @@ export default function OfficePage() {
     if (!officeState.initiateSearch) return;
     dispatch(officeActions.setInitiateSearch(false));
     setBusy(true);
-    await searchOffice(officeState.key, officeState.currentPage)
+    await searchOffice(
+      officeState.key,
+      officeState.itemCount,
+      officeState.currentPage
+    )
       .then((res) => {
         if (res !== undefined) {
           dispatch(officeActions.fill(res.results));
@@ -46,20 +50,19 @@ export default function OfficePage() {
   async function search(key: string) {
     dispatch(officeActions.setkey(key));
     dispatch(officeActions.setCurrentPage(1));
-    dispatch(officeActions.setInitiateSearch(true));
   }
   return (
     <div className='main-container'>
-      <section className='title-container'>
+      <div className='title-container'>
         <div className='title'>{Pages.Offices}</div>
-      </section>
-      <section>
+      </div>
+      <div>
         <SearchBar
           search={search}
           placeholder='Search Key'
           value={officeState.key}
         />
-      </section>
+      </div>
       <OfficeButtons />
       <OfficeItems />
       {officeModalState.isModalShow && <ManageOffice />}

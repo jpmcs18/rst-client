@@ -6,7 +6,7 @@ export default function BranchItems() {
   const dispatch = useDispatch();
   const branchState = useSelector((state: RootState) => state.branch);
   return (
-    <section className='table-container'>
+    <div className='table-container'>
       <table className='item-table'>
         <thead>
           <tr>
@@ -28,6 +28,6 @@ export default function BranchItems() {
           ))}
         </tbody>
       </table>
-    </section>
+    </div>
   );
 }

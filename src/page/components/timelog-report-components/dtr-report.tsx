@@ -51,7 +51,7 @@ export default function DTRReport() {
   }
 
   return (
-    <section className='report-container'>
+    <div className='report-container'>
       <div className='report-title'>Export DTR</div>
       <div className='report-header'>
         <CustomDateTimePicker
@@ -89,6 +89,6 @@ export default function DTRReport() {
         </div>
       </div>
       {employeeSearchableState.isModalShow && <EmployeeSearchable />}
-    </section>
+    </div>
   );
 }

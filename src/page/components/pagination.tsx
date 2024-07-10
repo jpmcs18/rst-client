@@ -7,18 +7,24 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
+import CustomDropdown from './custom-dropdown';
 
 export default function Pagination({
   pages,
+  itemCount,
   currentPageNumber,
   goInPage,
+  onItemCountChange,
 }: {
   pages: number;
+  itemCount: number;
   currentPageNumber: number;
   goInPage: (page: number) => void;
+  onItemCountChange: (itemCount: number) => void;
 }) {
   const currentPage = useRef<number>(currentPageNumber);
   const pageList = useRef<number[]>([]);
+  const itemCounts = [10, 20, 30, 40, 50];
   const [canGoFirst, setGoFirst] = useState<boolean>(false);
   const [canGoBefore, setGoBefore] = useState<boolean>(false);
   const [canGoAfter, setGoAfter] = useState<boolean>(false);
@@ -127,42 +133,54 @@ export default function Pagination({
   }
 
   return (
-    <div className='pagination'>
-      <FontAwesomeIcon
-        icon={faAngleDoubleLeft as IconProp}
-        className={!canGoFirst ? 'disabled' : ''}
-        onClick={goToFirst}
+    <div className='pagination-container'>
+      <CustomDropdown
+        removeFiltering
+        selectorOnly
+        value={itemCount}
+        onChange={(ret) => onItemCountChange(+ret.value)}
+        title={'Item Count'}
+        itemsList={itemCounts.map((item) => {
+          return { key: item.toString(), value: item.toString() };
+        })}
       />
-      <FontAwesomeIcon
-        icon={faAngleLeft as IconProp}
-        onClick={goToBefore}
-        className={!canGoBefore ? 'disabled' : ''}
-      />
-      <div className='pages-container'>
-        <button className='current-page'>{currentPage.current}</button>
-        <div className='pages'>
-          {pageList.current.map((pl) => (
-            <div
-              key={pl}
-              className={pl === currentPage.current ? 'active' : ''}
-              onClick={() => {
-                goToPage(pl);
-              }}>
-              {pl}
-            </div>
-          ))}
+      <div className='pagination'>
+        <FontAwesomeIcon
+          icon={faAngleDoubleLeft as IconProp}
+          className={!canGoFirst ? 'disabled' : ''}
+          onClick={goToFirst}
+        />
+        <FontAwesomeIcon
+          icon={faAngleLeft as IconProp}
+          onClick={goToBefore}
+          className={!canGoBefore ? 'disabled' : ''}
+        />
+        <div className='pages-container'>
+          <button className='current-page'>{currentPage.current}</button>
+          <div className='pages'>
+            {pageList.current.map((pl) => (
+              <div
+                key={pl}
+                className={pl === currentPage.current ? 'active' : ''}
+                onClick={() => {
+                  goToPage(pl);
+                }}>
+                {pl}
+              </div>
+            ))}
+          </div>
         </div>
+        <FontAwesomeIcon
+          icon={faAngleRight as IconProp}
+          onClick={goToAfter}
+          className={!canGoAfter ? 'disabled' : ''}
+        />
+        <FontAwesomeIcon
+          icon={faAngleDoubleRight as IconProp}
+          onClick={goToLast}
+          className={!canGoLast ? 'disabled' : ''}
+        />
       </div>
-      <FontAwesomeIcon
-        icon={faAngleRight as IconProp}
-        onClick={goToAfter}
-        className={!canGoAfter ? 'disabled' : ''}
-      />
-      <FontAwesomeIcon
-        icon={faAngleDoubleRight as IconProp}
-        onClick={goToLast}
-        className={!canGoLast ? 'disabled' : ''}
-      />
     </div>
   );
 }

@@ -30,10 +30,6 @@ export default function PositionButtons() {
     dispatch(positionModalActions.setPosition(positionState.selectedPosition!));
     dispatch(positionModalActions.setShowModal(true));
   }
-  async function nextPage(page: number) {
-    dispatch(positionActions.setCurrentPage(page));
-    dispatch(positionActions.setInitiateSearch(true));
-  }
   async function onDelete() {
     if (!positionState.selectedPosition?.id) return;
     setMessage({
@@ -58,7 +54,7 @@ export default function PositionButtons() {
     });
   }
   return (
-    <section className='btn-actions-group-container'>
+    <div className='btn-actions-group-container'>
       <div className='btn-actions-group'>
         {hasAccess(
           userProfileState.moduleRights,
@@ -106,7 +102,13 @@ export default function PositionButtons() {
       <Pagination
         pages={positionState.pageCount}
         currentPageNumber={positionState.currentPage}
-        goInPage={nextPage}></Pagination>
-    </section>
+        itemCount={positionState.itemCount}
+        onItemCountChange={(itemCount) =>
+          dispatch(positionActions.setItemCount(itemCount))
+        }
+        goInPage={(page) =>
+          dispatch(positionActions.setCurrentPage(page))
+        }></Pagination>
+    </div>
   );
 }

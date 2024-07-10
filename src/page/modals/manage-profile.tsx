@@ -16,6 +16,7 @@ import CustomCheckBox from '../components/custom-checkbox';
 import CustomPassword from '../components/custom-password';
 import CustomTextBox from '../components/custom-textbox';
 import Modal from './modal';
+import CustomUsername from '../components/custom-username';
 
 export default function ManageProfile({ onClose }: { onClose: () => void }) {
   // const [darkMode, setdarkMode] = useState(() => !!getTheme());
@@ -95,7 +96,7 @@ export default function ManageProfile({ onClose }: { onClose: () => void }) {
             readonly={true}
             value={userProfileState.systemUser?.displayName}
           />
-          <CustomTextBox
+          <CustomUsername
             title='Username'
             name='username'
             value={user?.username}
@@ -105,10 +106,10 @@ export default function ManageProfile({ onClose }: { onClose: () => void }) {
             <div className='header'>
               <CustomCheckBox
                 text='Change Password'
-                checkChange={() => {
+                onChange={() => {
                   setChangePassword((x) => !x);
                 }}
-                isCheck={changePassword}
+                isChecked={changePassword}
               />
             </div>
             <div className='content'>

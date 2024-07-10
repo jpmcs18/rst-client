@@ -54,7 +54,7 @@ export default function TimeLogButtons() {
     });
   }
   return (
-    <section className='btn-actions-group-container'>
+    <div className='btn-actions-group-container'>
       <div className='btn-actions-group'>
         {hasAccess(
           userProfileState.moduleRights,
@@ -102,6 +102,6 @@ export default function TimeLogButtons() {
           </button>
         )}
       </div>
-    </section>
+    </div>
   );
 }

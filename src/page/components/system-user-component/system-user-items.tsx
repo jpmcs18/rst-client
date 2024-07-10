@@ -6,7 +6,7 @@ export default function SystemUserItems() {
   const dispatch = useDispatch();
   const systemUserState = useSelector((state: RootState) => state.systemUser);
   return (
-    <section className='table-container'>
+    <div className='table-container'>
       <table className='item-table'>
         <thead>
           <tr>
@@ -38,6 +38,6 @@ export default function SystemUserItems() {
           ))}
         </tbody>
       </table>
-    </section>
+    </div>
   );
 }

@@ -30,10 +30,6 @@ export default function ScheduleButtons() {
     dispatch(scheduleModalActions.setSchedule(scheduleState.selectedSchedule!));
     dispatch(scheduleModalActions.setShowModal(true));
   }
-  async function nextPage(page: number) {
-    dispatch(scheduleActions.setCurrentPage(page));
-    dispatch(scheduleActions.setInitiateSearch(true));
-  }
   async function onDelete() {
     if (!scheduleState.selectedSchedule?.id) return;
     setMessage({
@@ -58,7 +54,7 @@ export default function ScheduleButtons() {
     });
   }
   return (
-    <section className='btn-actions-group-container'>
+    <div className='btn-actions-group-container'>
       <div className='btn-actions-group'>
         {hasAccess(
           userProfileState.moduleRights,
@@ -106,7 +102,13 @@ export default function ScheduleButtons() {
       <Pagination
         pages={scheduleState.pageCount}
         currentPageNumber={scheduleState.currentPage}
-        goInPage={nextPage}></Pagination>
-    </section>
+        itemCount={scheduleState.itemCount}
+        onItemCountChange={(itemCount) =>
+          dispatch(scheduleActions.setItemCount(itemCount))
+        }
+        goInPage={(page) =>
+          dispatch(scheduleActions.setCurrentPage(page))
+        }></Pagination>
+    </div>
   );
 }

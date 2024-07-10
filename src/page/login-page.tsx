@@ -14,7 +14,7 @@ import { authenticate } from '../repositories/security-queries';
 import { getData } from '../repositories/system-user-queries';
 import { userProfileAction } from '../state/reducers/user-profile-reducer';
 import CustomPassword from './components/custom-password';
-import CustomTextBox from './components/custom-textbox';
+import CustomUsername from './components/custom-username';
 export default function LoginPage() {
   const [user, setUser] = useState<LoginRequest>({
     username: '',
@@ -89,14 +89,14 @@ export default function LoginPage() {
     }
   }
   return (
-    <section className='login-base-container'>
+    <div className='login-base-container'>
       <div className='login-container'>
         <div className='login-header'>
           <img src={logo} alt='logo' className='login-logo' />
         </div>
         <div className='login-content'>
           <h1 className='content-header'>Login</h1>
-          <CustomTextBox
+          <CustomUsername
             title='Username'
             name='username'
             id='username'
@@ -130,6 +130,6 @@ export default function LoginPage() {
           </div> */}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

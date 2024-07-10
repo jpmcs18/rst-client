@@ -9,17 +9,19 @@ import TimelogFilter from './timelog-filter';
 export default function EmployeeSection() {
   const dispatch = useDispatch();
   const timelogState = useSelector((state: RootState) => state.timelog);
-  async function nextPage(page: number) {
-    dispatch(timelogActions.setCurrentPage(page));
-    dispatch(timelogActions.setInitiateSearch(true));
-  }
   return (
     <div className='timelog-main-container'>
       <div className='timelog-container'>
         <Pagination
           pages={timelogState.pageCount}
           currentPageNumber={timelogState.currentPage}
-          goInPage={nextPage}></Pagination>
+          itemCount={timelogState.itemCount}
+          onItemCountChange={(itemCount) =>
+            dispatch(timelogActions.setItemCount(itemCount))
+          }
+          goInPage={(page) =>
+            dispatch(timelogActions.setCurrentPage(page))
+          }></Pagination>
         <div className='table-container employee-container'>
           <table className='item-table'>
             <thead>

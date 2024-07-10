@@ -15,6 +15,7 @@ import TimeLogPage from './components/timelog-components/timelog-page';
 import TimelogReportPage from './components/timelog-report-components/timelog-report-page';
 import BranchPage from './components/branch-components/branch-page';
 import SchedulePage from './components/schedule-components/schedule-page';
+import WorkingSchedulePage from './components/working-schedule-components/working-schedule-page';
 
 export default function PageRoutes() {
   const userProfileState = useSelector((state: RootState) => state.userProfile);
@@ -110,6 +111,15 @@ export default function PageRoutes() {
         <Route
           path={getModuleByPageName(Pages.Schedules).route}
           element={<SchedulePage />}
+        />
+      )}
+      {(!!userProfileState.module.filter(
+        (x) => x === getModuleByPageName(Pages.WorkingSchedules).id
+      ).length ||
+        userProfileState.isAdmin) && (
+        <Route
+          path={getModuleByPageName(Pages.WorkingSchedules).route}
+          element={<WorkingSchedulePage />}
         />
       )}
       <Route

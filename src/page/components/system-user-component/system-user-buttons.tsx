@@ -63,10 +63,6 @@ export default function SystemUserButtons() {
       },
     });
   }
-  async function nextPage(page: number) {
-    dispatch(systemUserActions.setCurrentPage(page));
-    dispatch(systemUserActions.setInitiateSearch(true));
-  }
   async function onDelete() {
     if (!systemUserState.selectedSystemUser?.id) return;
 
@@ -92,7 +88,7 @@ export default function SystemUserButtons() {
     });
   }
   return (
-    <section className='btn-actions-group-container'>
+    <div className='btn-actions-group-container'>
       <div className='btn-actions-group'>
         {hasAccess(
           userProfileState.moduleRights,
@@ -155,7 +151,13 @@ export default function SystemUserButtons() {
       <Pagination
         pages={systemUserState.pageCount}
         currentPageNumber={systemUserState.pageCount}
-        goInPage={nextPage}></Pagination>
-    </section>
+        itemCount={systemUserState.itemCount}
+        onItemCountChange={(itemCount) =>
+          dispatch(systemUserActions.setItemCount(itemCount))
+        }
+        goInPage={(page) =>
+          dispatch(systemUserActions.setCurrentPage(page))
+        }></Pagination>
+    </div>
   );
 }

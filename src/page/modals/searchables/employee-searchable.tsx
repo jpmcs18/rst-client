@@ -34,6 +34,7 @@ export default function EmployeeSearchable() {
     dispatch(employeeSearchableActions.setInitiateSearch(false));
     await searchEmployee(
       employeeSearchableState.key,
+      employeeSearchableState.itemCount,
       employeeSearchableState.currentPage
     )
       .then((res) => {
@@ -50,7 +51,6 @@ export default function EmployeeSearchable() {
   async function search(key: string) {
     dispatch(employeeSearchableActions.setkey(key));
     dispatch(employeeSearchableActions.setCurrentPage(1));
-    dispatch(employeeSearchableActions.setInitiateSearch(true));
   }
   function onClose(hasReturn: boolean) {
     dispatch(employeeSearchableActions.setShowModal(false));
@@ -60,30 +60,32 @@ export default function EmployeeSearchable() {
       );
     }
   }
-  async function nextPage(page: number) {
-    dispatch(employeeSearchableActions.setCurrentPage(page));
-    dispatch(employeeSearchableActions.setInitiateSearch(true));
-  }
   return (
     <Modal
       className='searchable-modal'
       onClose={() => onClose(false)}
       title={'Search Employee'}>
       <div className='modal-content-body employee-searchable-content-body'>
-        <section>
+        <div>
           <SearchBar
             search={search}
             placeholder='Search Key'
             value={employeeSearchableState.key}
           />
-        </section>
-        <section>
+        </div>
+        <div>
           <Pagination
             pages={employeeSearchableState.pageCount}
             currentPageNumber={employeeSearchableState.currentPage}
-            goInPage={nextPage}></Pagination>
-        </section>
-        <section className='searchable-table'>
+            itemCount={employeeSearchableState.itemCount}
+            onItemCountChange={(itemCount) =>
+              dispatch(employeeSearchableActions.setItemCount(itemCount))
+            }
+            goInPage={(page) =>
+              dispatch(employeeSearchableActions.setCurrentPage(page))
+            }></Pagination>
+        </div>
+        <div className='searchable-table'>
           <table className='item-table'>
             <thead>
               <tr>
@@ -112,7 +114,7 @@ export default function EmployeeSearchable() {
               ))}
             </tbody>
           </table>
-        </section>
+        </div>
       </div>
       <div className='modal-footer'>
         <div className='btn-actions-group'>

@@ -6,7 +6,7 @@ export default function OfficeItems() {
   const dispatch = useDispatch();
   const officeState = useSelector((state: RootState) => state.office);
   return (
-    <section className='table-container'>
+    <div className='table-container'>
       <table className='item-table'>
         <thead>
           <tr>
@@ -28,6 +28,6 @@ export default function OfficeItems() {
           ))}
         </tbody>
       </table>
-    </section>
+    </div>
   );
 }

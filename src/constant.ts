@@ -17,7 +17,7 @@ export const Pages = {
   ModeOfPayments: 'Mode Of Payments',
   TimelogReports: 'Timelog Reports',
   Schedules: 'Schedules',
-  EmployeeSchedules: 'Employee Schedules',
+  WorkingSchedules: 'Working Schedules',
   TimeLogs: 'Time Logs',
 };
 

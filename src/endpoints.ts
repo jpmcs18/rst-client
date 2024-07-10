@@ -19,6 +19,8 @@ export const UserAccessEnd = {
 
 export const EmployeeEnd = {
   Search: 'employees/search',
+  SearchInWorkSchedule: 'employees/search/work-schedule',
+  SearchNotInWorkSchedule: 'employees/search/work-schedule/not',
   GetList: 'employees',
   Insert: 'employees',
   Update: 'employees',
@@ -81,4 +83,13 @@ export const ScheduleEnd = {
   Insert: 'schedules',
   Update: 'schedules',
   Delete: 'schedules',
+};
+export const WorkingScheduleEnd = {
+  Search: 'working-schedules/search',
+  GetList: 'working-schedules',
+  Insert: 'working-schedules',
+  Update: 'working-schedules',
+  Delete: 'working-schedules',
+  AddEmployee: 'working-schedules/employee',
+  DeleteEmployee: 'working-schedules/employee/delete',
 };

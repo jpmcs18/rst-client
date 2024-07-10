@@ -1,15 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import Schedule from '../../models/entities/Schedule';
 import CustomReturn from '../../models/client-model/CustomReturn';
-
+import BreakTime from '../../models/entities/BreakTime';
+import Schedule from '../../models/entities/Schedule';
+import { Guid } from 'guid-typescript';
 interface State {
   schedule: Schedule;
   isModalShow: boolean;
+  breaktime: BreakTime | undefined;
+  deletedIds: number[];
 }
-const scheduleInitialState = { id: 0, description: '' };
+const scheduleInitialState: Schedule = {
+  id: 0,
+  description: '',
+  breakTimes: [],
+};
 const initialState: State = {
   schedule: scheduleInitialState,
   isModalShow: false,
+  breaktime: undefined,
+  deletedIds: [],
 };
 
 const scheduleModalSlice = createSlice({
@@ -27,6 +36,46 @@ const scheduleModalSlice = createSlice({
     },
     setShowModal(state, action: PayloadAction<boolean>) {
       state.isModalShow = action.payload;
+      if (!action.payload) {
+        state.breaktime = undefined;
+        state.deletedIds = [];
+      }
+    },
+    updateBreakTime(state, action: PayloadAction<CustomReturn>) {
+      state.breaktime = {
+        ...state.breaktime!,
+        [action.payload.elementName]: action.payload.value,
+      };
+    },
+    addBreakTime(state) {
+      if (state.schedule.breakTimes) {
+        state.schedule.breakTimes = [
+          ...state.schedule.breakTimes!,
+          {
+            ...state.breaktime!,
+            tempId: Guid.create().toString(),
+          },
+        ];
+      } else {
+        state.schedule.breakTimes = [
+          {
+            ...state.breaktime!,
+            tempId: Guid.create().toString(),
+          },
+        ];
+      }
+      state.breaktime = undefined;
+    },
+    deleteBreakTime(state, action: PayloadAction<BreakTime>) {
+      state.schedule.breakTimes = state.schedule.breakTimes
+        ?.slice()
+        .filter(
+          (x) =>
+            !(x.tempId === action.payload.tempId && x.id === action.payload.id)
+        );
+      if (!!action.payload.id) {
+        state.deletedIds = [...state.deletedIds, action.payload.id];
+      }
     },
   },
 });

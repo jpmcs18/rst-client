@@ -30,10 +30,6 @@ export default function UserRoleButtons() {
     dispatch(userRoleModalActions.setUserRole(userRoleState.selectedUserRole!));
     dispatch(userRoleModalActions.setShowModal(true));
   }
-  async function nextPage(page: number) {
-    dispatch(userRoleActions.setCurrentPage(page));
-    dispatch(userRoleActions.setInitiateSearch(true));
-  }
   async function onDelete() {
     if (!userRoleState.selectedUserRole?.id) return;
 
@@ -59,7 +55,7 @@ export default function UserRoleButtons() {
     });
   }
   return (
-    <section className='btn-actions-group-container'>
+    <div className='btn-actions-group-container'>
       <div className='btn-actions-group'>
         {hasAccess(
           userProfileState.moduleRights,
@@ -106,7 +102,13 @@ export default function UserRoleButtons() {
       <Pagination
         pages={userRoleState.pageCount}
         currentPageNumber={userRoleState.currentPage}
-        goInPage={nextPage}></Pagination>
-    </section>
+        itemCount={userRoleState.itemCount}
+        onItemCountChange={(itemCount) =>
+          dispatch(userRoleActions.setItemCount(itemCount))
+        }
+        goInPage={(page) =>
+          dispatch(userRoleActions.setCurrentPage(page))
+        }></Pagination>
+    </div>
   );
 }

@@ -11,12 +11,14 @@ export default function CustomDropdownItems({
   value,
   onChange,
   itemsList,
+  removeFiltering,
 }: {
   id: string;
   name?: string;
   value?: any;
   onChange?: (data: CustomReturn) => void;
   itemsList: DropdownItem[];
+  removeFiltering?: boolean;
 }) {
   const [filter, setFilter] = useState('');
   const divRef = useRef<HTMLDivElement>(null);
@@ -64,17 +66,19 @@ export default function CustomDropdownItems({
   }
   return ReactDOM.createPortal(
     <div className='selection' ref={divRef} id={id}>
-      <div>
-        <input
-          id={'-search' + id}
-          className='search-input'
-          type='text'
-          value={filter}
-          placeholder='Search...'
-          autoComplete='off'
-          onChange={(e) => setFilter(e.target.value)}
-        />
-      </div>
+      {!removeFiltering && (
+        <div>
+          <input
+            id={'-search' + id}
+            className='search-input'
+            type='text'
+            value={filter}
+            placeholder='Search...'
+            autoComplete='off'
+            onChange={(e) => setFilter(e.target.value)}
+          />
+        </div>
+      )}
       <div className='selection-list'>
         {itemsList
           .filter((x) => x.value?.toLowerCase()?.includes(filter.toLowerCase()))

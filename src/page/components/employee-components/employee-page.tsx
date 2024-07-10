@@ -33,7 +33,11 @@ export default function EmployeePage() {
     if (!employeeState.initiateSearch) return;
     setBusy(true);
     dispatch(employeeActions.setInitiateSearch(false));
-    await searchEmployee(employeeState.key, employeeState.currentPage)
+    await searchEmployee(
+      employeeState.key,
+      employeeState.itemCount,
+      employeeState.currentPage
+    )
       .then((res) => {
         if (res !== undefined) {
           dispatch(employeeActions.fill(res.results));
@@ -50,20 +54,19 @@ export default function EmployeePage() {
   async function search(key: string) {
     dispatch(employeeActions.setkey(key));
     dispatch(employeeActions.setCurrentPage(1));
-    dispatch(employeeActions.setInitiateSearch(true));
   }
   return (
     <div className='main-container'>
-      <section className='title-container'>
+      <div className='title-container'>
         <div className='title'>{Pages.Employees}</div>
-      </section>
-      <section>
+      </div>
+      <div>
         <SearchBar
           search={search}
           placeholder='Search Key'
           value={employeeState.key}
         />
-      </section>
+      </div>
       <EmployeeButtons />
       <EmployeeItems />
       {employeeModalState.isModalShow && <ManageEmployee />}

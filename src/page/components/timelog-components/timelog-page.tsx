@@ -61,7 +61,11 @@ export default function TimeLogPage() {
     if (!timelogState.initiateSearch) return;
     setBusy(true);
     dispatch(timelogActions.setInitiateSearch(false));
-    await searchEmployee(timelogState.key, timelogState.currentPage)
+    await searchEmployee(
+      timelogState.key,
+      timelogState.itemCount,
+      timelogState.currentPage
+    )
       .then((res) => {
         if (res !== undefined) {
           dispatch(timelogActions.fill(res.results));
@@ -78,20 +82,19 @@ export default function TimeLogPage() {
   async function search(key: string) {
     dispatch(timelogActions.setkey(key));
     dispatch(timelogActions.setCurrentPage(1));
-    dispatch(timelogActions.setInitiateSearch(true));
   }
   return (
     <div className='main-container'>
-      <section className='title-container'>
+      <div className='title-container'>
         <div className='title'>{Pages.TimeLogs}</div>
-      </section>
-      <section>
+      </div>
+      <div>
         <SearchBar
           search={search}
           placeholder='Search Key'
           value={timelogState.key}
         />
-      </section>
+      </div>
       <TimeLogItems />
 
       {timelogModalState.isModalShow && <ManageTimelog />}

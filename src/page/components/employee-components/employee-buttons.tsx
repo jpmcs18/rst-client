@@ -53,12 +53,8 @@ export default function EmployeeButtons() {
       },
     });
   }
-  async function nextPage(page: number) {
-    dispatch(employeeActions.setCurrentPage(page));
-    dispatch(employeeActions.setInitiateSearch(true));
-  }
   return (
-    <section className='btn-actions-group-container'>
+    <div className='btn-actions-group-container'>
       <div className='btn-actions-group'>
         {hasAccess(
           userProfileState.moduleRights,
@@ -106,7 +102,13 @@ export default function EmployeeButtons() {
       <Pagination
         pages={employeeState.pageCount}
         currentPageNumber={employeeState.currentPage}
-        goInPage={nextPage}></Pagination>
-    </section>
+        itemCount={employeeState.itemCount}
+        onItemCountChange={(itemCount) =>
+          dispatch(employeeActions.setItemCount(itemCount))
+        }
+        goInPage={(page) =>
+          dispatch(employeeActions.setCurrentPage(page))
+        }></Pagination>
+    </div>
   );
 }

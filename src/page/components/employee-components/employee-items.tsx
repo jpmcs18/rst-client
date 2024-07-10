@@ -6,7 +6,7 @@ export default function EmployeeItems() {
   const dispatch = useDispatch();
   const employeeState = useSelector((state: RootState) => state.employee);
   return (
-    <section className='table-container'>
+    <div className='table-container'>
       <table className='item-table'>
         <thead>
           <tr>
@@ -34,6 +34,6 @@ export default function EmployeeItems() {
           ))}
         </tbody>
       </table>
-    </section>
+    </div>
   );
 }

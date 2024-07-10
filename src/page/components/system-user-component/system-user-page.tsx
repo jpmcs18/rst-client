@@ -33,7 +33,11 @@ export default function SystemUserPage() {
     if (!systemUserState.initiateSearch) return;
     dispatch(systemUserActions.setInitiateSearch(false));
     setBusy(true);
-    await searchSystemUser(systemUserState.key, systemUserState.currentPage)
+    await searchSystemUser(
+      systemUserState.key,
+      systemUserState.itemCount,
+      systemUserState.currentPage
+    )
       .then((res) => {
         if (res !== undefined) {
           dispatch(systemUserActions.fill(res.results));
@@ -48,20 +52,19 @@ export default function SystemUserPage() {
   async function search(key: string) {
     dispatch(systemUserActions.setkey(key));
     dispatch(systemUserActions.setCurrentPage(1));
-    dispatch(systemUserActions.setInitiateSearch(true));
   }
   return (
     <div className='main-container'>
-      <section className='title-container'>
+      <div className='title-container'>
         <div className='title'>{Pages.SystemUsers}</div>
-      </section>
-      <section>
+      </div>
+      <div>
         <SearchBar
           search={search}
           placeholder='Search Key'
           value={systemUserState.key}
         />
-      </section>
+      </div>
       <SystemUserButtons />
       <SystemUserItems />
       {systemUserModalState.isModalShow && <ManageSystemUser />}

@@ -5,7 +5,7 @@ export default interface Schedule {
   description?: string;
   timeStart?: Date;
   timeEnd?: Date;
-  totalWorkingHours?: number;
+  totalWorkingMinutes?: number;
 
-  breakTimes?: BreakTime[];
+  breakTimes: BreakTime[] | undefined;
 }

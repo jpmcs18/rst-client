@@ -5,9 +5,10 @@ import { httpDelete, httpGet, httpPost, httpPut } from './base';
 
 export async function searchOffice(
   key: string,
+  itemCount: number,
   page: number
 ): Promise<SearchResult<Office> | undefined> {
-  var query = '?page=' + page;
+  var query = '?itemCount=' + itemCount + '&page=' + page;
   if (!!key) {
     query += '&key=' + encodeURI(key);
   }

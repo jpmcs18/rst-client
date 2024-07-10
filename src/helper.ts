@@ -16,7 +16,7 @@ const shortMonths = [
   'Nov',
   'Dec',
 ];
-const longMonths = [
+export const longMonths = [
   'January',
   'February',
   'March',
@@ -59,7 +59,6 @@ export function toDateMMM_dd_yyyy(date?: Date | null): string {
     d.getFullYear()
   );
 }
-
 /**
  * @returns formated date MMMM dd, yyyy
  */
@@ -360,6 +359,17 @@ export function toTimeDisplay(date?: Date | null): string {
   return `${hours.toString().padStart(2, '0')}:${minutes
     .toString()
     .padStart(2, '0')}`;
+}
+
+export function toFullTimeDisplay(date?: Date | null): string {
+  if (date === undefined || date === null) return '';
+  const d = new Date(date);
+  const hours = (d?.getHours() ?? 0) - ((d?.getHours() ?? 0) > 12 ? 12 : 0);
+  const minutes = d.getMinutes();
+  const ampm = (d?.getHours() ?? 0) >= 12 ? 'PM' : 'AM'
+  return `${hours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')} ${ampm}`;
 }
 
 export function toAmount(amount?: number | null): string {

@@ -30,10 +30,6 @@ export default function BranchButtons() {
     dispatch(branchModalActions.setBranch(branchState.selectedBranch!));
     dispatch(branchModalActions.setShowModal(true));
   }
-  async function nextPage(page: number) {
-    dispatch(branchActions.setCurrentPage(page));
-    dispatch(branchActions.setInitiateSearch(true));
-  }
   async function onDelete() {
     if (!branchState.selectedBranch?.id) return;
 
@@ -59,7 +55,7 @@ export default function BranchButtons() {
     });
   }
   return (
-    <section className='btn-actions-group-container'>
+    <div className='btn-actions-group-container'>
       <div className='btn-actions-group'>
         {hasAccess(
           userProfileState.moduleRights,
@@ -107,7 +103,12 @@ export default function BranchButtons() {
       <Pagination
         pages={branchState.pageCount}
         currentPageNumber={branchState.currentPage}
-        goInPage={nextPage}></Pagination>
-    </section>
+        itemCount={branchState.itemCount}
+        onItemCountChange={(itemCount) =>
+          dispatch(branchActions.setItemCount(itemCount))
+        }
+        goInPage={(page) => dispatch(branchActions.setCurrentPage(page))}
+      />
+    </div>
   );
 }

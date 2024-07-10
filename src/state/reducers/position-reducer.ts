@@ -13,6 +13,7 @@ const initialState: State = {
   currentPage: 1,
   pageCount: 0,
   initiateSearch: true,
+  itemCount: 10,
 };
 
 const positionSlice = createSlice({
@@ -31,6 +32,11 @@ const positionSlice = createSlice({
     },
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
+      state.initiateSearch = true;
+    },
+    setItemCount(state, action: PayloadAction<number>) {
+      state.itemCount = action.payload;
+      state.initiateSearch = true;
     },
     setPageCount(state, action: PayloadAction<number>) {
       state.pageCount = action.payload;

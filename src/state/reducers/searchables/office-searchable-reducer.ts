@@ -15,6 +15,7 @@ const initialState: State = {
   pageCount: 0,
   initiateSearch: false,
   isModalShow: false,
+  itemCount: 10,
 };
 
 const officeSearchableSlice = createSlice({
@@ -33,6 +34,11 @@ const officeSearchableSlice = createSlice({
     },
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
+      state.initiateSearch = true;
+    },
+    setItemCount(state, action: PayloadAction<number>) {
+      state.itemCount = action.payload;
+      state.initiateSearch = true;
     },
     setPageCount(state, action: PayloadAction<number>) {
       state.pageCount = action.payload;

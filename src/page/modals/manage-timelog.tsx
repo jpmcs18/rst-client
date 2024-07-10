@@ -70,7 +70,7 @@ export default function ManageTimelog() {
         <CustomDateTimePicker
           title='Login'
           name='login'
-          type='datetime-local'
+          type='datetime'
           value={timelogModalState.timelog.login}
           onChange={(ret) => {
             dispatch(timelogModalActions.updateTimelog(ret));
@@ -79,7 +79,7 @@ export default function ManageTimelog() {
         <CustomDateTimePicker
           title='Logout'
           name='logout'
-          type='datetime-local'
+          type='datetime'
           value={timelogModalState.timelog.logout}
           onChange={(ret) => {
             dispatch(timelogModalActions.updateTimelog(ret));

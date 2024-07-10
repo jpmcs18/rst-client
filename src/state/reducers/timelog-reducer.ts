@@ -24,6 +24,7 @@ const initialState: State = {
   start: undefined,
   end: undefined,
   refreshTimelogs: false,
+  itemCount: 10,
 };
 
 const timelogSlice = createSlice({
@@ -57,6 +58,11 @@ const timelogSlice = createSlice({
     },
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
+      state.initiateSearch = true;
+    },
+    setItemCount(state, action: PayloadAction<number>) {
+      state.itemCount = action.payload;
+      state.initiateSearch = true;
     },
     setPageCount(state, action: PayloadAction<number>) {
       state.pageCount = action.payload;

@@ -29,10 +29,10 @@ export default function ManageUserRoleAccess() {
                       <CustomCheckBox
                         text={module.description}
                         id={'module' + module.id}
-                        checkChange={() => {
+                        onChange={() => {
                           dispatch(userRoleModalActions.checkModule(module.id));
                         }}
-                        isCheck={module.isCheck ?? false}
+                        isChecked={module.isCheck ?? false}
                       />
                     </div>
                   }
@@ -43,7 +43,7 @@ export default function ManageUserRoleAccess() {
                           <CustomCheckBox
                             text={moduleRight.right}
                             id={'module-right' + moduleRight.id}
-                            checkChange={() => {
+                            onChange={() => {
                               dispatch(
                                 userRoleModalActions.checkModuleRight({
                                   moduleId: module.id,
@@ -51,7 +51,7 @@ export default function ManageUserRoleAccess() {
                                 })
                               );
                             }}
-                            isCheck={moduleRight.isCheck ?? false}
+                            isChecked={moduleRight.isCheck ?? false}
                           />
                         </div>
                       ))}

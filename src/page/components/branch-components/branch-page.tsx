@@ -31,7 +31,11 @@ export default function BranchPage() {
     if (!branchState.initiateSearch) return;
     dispatch(branchActions.setInitiateSearch(false));
     setBusy(true);
-    await searchBranch(branchState.key, branchState.currentPage)
+    await searchBranch(
+      branchState.key,
+      branchState.itemCount,
+      branchState.currentPage
+    )
       .then((res) => {
         if (res !== undefined) {
           dispatch(branchActions.fill(res.results));
@@ -46,20 +50,19 @@ export default function BranchPage() {
   async function search(key: string) {
     dispatch(branchActions.setkey(key));
     dispatch(branchActions.setCurrentPage(1));
-    dispatch(branchActions.setInitiateSearch(true));
   }
   return (
     <div className='main-container'>
-      <section className='title-container'>
+      <div className='title-container'>
         <div className='title'>{Pages.Branches}</div>
-      </section>
-      <section>
+      </div>
+      <div>
         <SearchBar
           search={search}
           placeholder='Search Key'
           value={branchState.key}
         />
-      </section>
+      </div>
       <BranchButtons />
       <BranchItems />
       {branchModalState.isModalShow && <ManageBranch />}

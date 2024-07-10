@@ -13,6 +13,7 @@ const initialState: State = {
   selectedEmployee: undefined,
   key: '',
   currentPage: 1,
+  itemCount: 10,
   pageCount: 0,
   initiateSearch: false,
   isModalShow: false,
@@ -35,6 +36,11 @@ const employeeSearchableSlice = createSlice({
     },
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
+      state.initiateSearch = true;
+    },
+    setItemCount(state, action: PayloadAction<number>) {
+      state.itemCount = action.payload;
+      state.initiateSearch = true;
     },
     setPageCount(state, action: PayloadAction<number>) {
       state.pageCount = action.payload;

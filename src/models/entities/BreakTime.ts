@@ -1,7 +1,9 @@
 export default interface BreakTime {
   id: number;
   scheduleId: number;
-  description?: string;
   timeStart?: Date;
-  totalBreakTimes?: number;
+  timeEnd?: Date;
+  totalBreakMinutes?: number;
+
+  tempId?: string;
 }

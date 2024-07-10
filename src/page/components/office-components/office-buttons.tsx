@@ -30,10 +30,6 @@ export default function OfficeButtons() {
     dispatch(officeModalActions.setOffice(officeState.selectedOffice!));
     dispatch(officeModalActions.setShowModal(true));
   }
-  async function nextPage(page: number) {
-    dispatch(officeActions.setCurrentPage(page));
-    dispatch(officeActions.setInitiateSearch(true));
-  }
   async function onDelete() {
     if (!officeState.selectedOffice?.id) return;
 
@@ -59,7 +55,7 @@ export default function OfficeButtons() {
     });
   }
   return (
-    <section className='btn-actions-group-container'>
+    <div className='btn-actions-group-container'>
       <div className='btn-actions-group'>
         {hasAccess(
           userProfileState.moduleRights,
@@ -107,7 +103,13 @@ export default function OfficeButtons() {
       <Pagination
         pages={officeState.pageCount}
         currentPageNumber={officeState.currentPage}
-        goInPage={nextPage}></Pagination>
-    </section>
+        itemCount={officeState.itemCount}
+        onItemCountChange={(itemCount) =>
+          dispatch(officeActions.setItemCount(itemCount))
+        }
+        goInPage={(page) =>
+          dispatch(officeActions.setCurrentPage(page))
+        }></Pagination>
+    </div>
   );
 }

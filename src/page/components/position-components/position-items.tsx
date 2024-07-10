@@ -6,7 +6,7 @@ export default function PositionItems() {
   const dispatch = useDispatch();
   const positionState = useSelector((state: RootState) => state.position);
   return (
-    <section className='table-container'>
+    <div className='table-container'>
       <table className='item-table'>
         <thead>
           <tr>
@@ -28,6 +28,6 @@ export default function PositionItems() {
           ))}
         </tbody>
       </table>
-    </section>
+    </div>
   );
 }

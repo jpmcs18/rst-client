@@ -39,6 +39,7 @@ export default function OfficeSearchable({
     dispatch(officeSearchableActions.setInitiateSearch(false));
     await searchOffice(
       officeSearchableState.key,
+      officeSearchableState.itemCount,
       officeSearchableState.currentPage
     )
       .then((res) => {
@@ -55,15 +56,10 @@ export default function OfficeSearchable({
   async function search(key: string) {
     dispatch(officeSearchableActions.setkey(key));
     dispatch(officeSearchableActions.setCurrentPage(1));
-    dispatch(officeSearchableActions.setInitiateSearch(true));
   }
   function onClose(hasReturn: boolean) {
     dispatch(officeSearchableActions.setShowModal(false));
     onModalClose(hasReturn ? officeSearchableState.selectedOffice : undefined);
-  }
-  async function nextPage(page: number) {
-    dispatch(officeSearchableActions.setCurrentPage(page));
-    dispatch(officeSearchableActions.setInitiateSearch(true));
   }
   return (
     <Modal
@@ -71,20 +67,26 @@ export default function OfficeSearchable({
       onClose={() => onClose(false)}
       title={'Search Office'}>
       <div className='modal-content-body office-searchable-content-body'>
-        <section>
+        <div>
           <SearchBar
             search={search}
             placeholder='Search Key'
             value={officeSearchableState.key}
           />
-        </section>
-        <section>
+        </div>
+        <div>
           <Pagination
             pages={officeSearchableState.pageCount}
             currentPageNumber={officeSearchableState.currentPage}
-            goInPage={nextPage}></Pagination>
-        </section>
-        <section className='searchable-table'>
+            itemCount={officeSearchableState.itemCount}
+            onItemCountChange={(itemCount) =>
+              dispatch(officeSearchableActions.setItemCount(itemCount))
+            }
+            goInPage={(page) =>
+              dispatch(officeSearchableActions.setCurrentPage(page))
+            }></Pagination>
+        </div>
+        <div className='searchable-table'>
           <table className='item-table'>
             <thead>
               <tr>
@@ -109,7 +111,7 @@ export default function OfficeSearchable({
               ))}
             </tbody>
           </table>
-        </section>
+        </div>
       </div>
       <div className='modal-footer'>
         <div className='btn-actions-group'>

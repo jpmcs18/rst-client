@@ -8,9 +8,9 @@ export default function TimelogReportPage() {
   const userProfileState = useSelector((state: RootState) => state.userProfile);
   return (
     <div className='main-container'>
-      <section className='title-container'>
+      <div className='title-container'>
         <div className='title'>{Pages.TimelogReports}</div>
-      </section>
+      </div>
       {hasAccess(
         userProfileState.moduleRights,
         Pages.TimelogReports,

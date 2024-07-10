@@ -49,8 +49,8 @@ export const SystemModules: ModuleRoute[] = [
   },
   {
     id: 71,
-    pageName: Pages.EmployeeSchedules,
-    route: '/employee-schedules',
+    pageName: Pages.WorkingSchedules,
+    route: '/working-schedules',
     display: true,
   },
   {

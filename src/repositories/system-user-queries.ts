@@ -21,9 +21,10 @@ export async function getData(): Promise<SystemUser | undefined> {
 
 export async function searchSystemUser(
   key: string,
+  itemCount: number,
   page: number
 ): Promise<SearchResult<SystemUser> | undefined> {
-  var query = '?page=' + page;
+  var query = '?itemCount=' + itemCount + '&page=' + page;
   if (!!key) {
     query += '&key=' + encodeURI(key);
   }
